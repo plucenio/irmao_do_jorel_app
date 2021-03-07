@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'constants.dart';
+
 class AppWidget extends StatefulWidget {
   @override
   _AppWidgetState createState() => _AppWidgetState();
@@ -28,9 +30,9 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Meu App",
+      title: app_name,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       navigatorKey: Modular.navigatorKey,
       onGenerateRoute: Modular.generateRoute,
