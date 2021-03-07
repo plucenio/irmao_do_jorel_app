@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:irmao_do_jorel_app/core/erros.dart';
-import 'package:irmao_do_jorel_app/features/teste/domain/entities/character.dart';
-import 'package:irmao_do_jorel_app/features/teste/domain/repositories_interfaces/jorels_brother_repository.dart';
+import 'package:irmao_do_jorel_app/features/api/domain/entities/character.dart';
+import 'package:irmao_do_jorel_app/features/api/domain/repositories_interfaces/jorels_brother_repository.dart';
 
 abstract class IJorelsBrotherUsecase {
   Future<Either<IFailure, List<Character>>> getCharacters();

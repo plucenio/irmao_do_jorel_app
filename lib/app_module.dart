@@ -1,14 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:irmao_do_jorel_app/features/teste/data/datasources_interfaces/jorels_brother_datasource.dart';
-import 'package:irmao_do_jorel_app/features/teste/domain/repositories_interfaces/jorels_brother_repository.dart';
-import 'package:irmao_do_jorel_app/features/teste/domain/usecases/jorels_brother_usecase.dart';
-import 'package:irmao_do_jorel_app/features/teste/external/datasources/jorels_brother_datasource.dart';
-import 'package:irmao_do_jorel_app/main_page.dart';
+import 'package:irmao_do_jorel_app/features/api/data/datasources_interfaces/jorels_brother_datasource.dart';
+import 'package:irmao_do_jorel_app/features/api/domain/repositories_interfaces/jorels_brother_repository.dart';
+import 'package:irmao_do_jorel_app/features/api/domain/usecases/jorels_brother_usecase.dart';
+import 'package:irmao_do_jorel_app/features/api/external/datasources/jorels_brother_datasource.dart';
+import 'package:irmao_do_jorel_app/features/api/presentation/pages/characters_page.dart';
 
 import 'app_widget.dart';
-import 'features/teste/data/repositories/jorels_brother_repository.dart';
+import 'features/api/data/repositories/jorels_brother_repository.dart';
+import 'features/api/presentation/cubit/characters_cubit.dart';
 
 class AppModule extends MainModule {
   @override
@@ -26,7 +28,10 @@ class AppModule extends MainModule {
   List<ModularRouter> get routers => [
         ModularRouter(
           Modular.initialRoute,
-          child: (context, args) => MainPage(),
+          child: (context, args) => BlocProvider(
+            create: (_) => CharactersCubit(),
+            child: CharactersPage(),
+          ),
         ),
       ];
 }

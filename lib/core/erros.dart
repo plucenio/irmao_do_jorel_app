@@ -1,5 +1,10 @@
-abstract class IFailure {}
+abstract class IFailure {
+  String message;
+
+  IFailure({this.message});
+}
 
 class UnexpectedFailure implements IFailure {
-  UnexpectedFailure({String message});
+  String message;
+  UnexpectedFailure(this.message) : super();
 }

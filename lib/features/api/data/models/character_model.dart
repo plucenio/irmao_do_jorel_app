@@ -1,4 +1,4 @@
-import 'package:irmao_do_jorel_app/features/teste/domain/entities/character.dart';
+import 'package:irmao_do_jorel_app/features/api/domain/entities/character.dart';
 
 class CharacterModel extends Character {
   int id;
