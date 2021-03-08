@@ -13,18 +13,18 @@ import 'package:mockito/mockito.dart';
 
 import '../../../fixtures/fixture_reader.dart';
 
-class MockHttpClient extends Mock implements Dio {}
+class MockDio extends Mock implements Dio {}
 
 void main() {
-  MockHttpClient mockHttpClient;
+  MockDio mockDio;
   setUp(
     () {
       initModules([
         AppModule(),
       ], changeBinds: [
-        Bind<Dio>((i) => MockHttpClient()),
+        Bind<Dio>((i) => MockDio()),
       ]);
-      mockHttpClient = Modular.get<Dio>();
+      mockDio = Modular.get<Dio>();
     },
   );
 
@@ -35,7 +35,7 @@ void main() {
         'ok',
         () async {
           //Assert
-          expect(Modular.get<Dio>(), isA<MockHttpClient>());
+          expect(Modular.get<Dio>(), isA<MockDio>());
           // Arrange
         },
       );
@@ -51,7 +51,7 @@ void main() {
         () async {
           for (var i = 201; i < 300; i++) {
             // Arrange
-            when(mockHttpClient.get(any))
+            when(mockDio.get(any))
                 .thenAnswer((_) async => Response(data: "", statusCode: i));
 
             //Assert
@@ -65,10 +65,10 @@ void main() {
 
       test(
         'Should return a DioError '
-        'when diomock return DioError',
+        'when MockDio return DioError',
         () async {
           // Arrange
-          when(mockHttpClient.get(any)).thenThrow(
+          when(mockDio.get(any)).thenThrow(
             DioError(),
           );
 
@@ -84,7 +84,7 @@ void main() {
         'Should return a CharacterModel list when gets data',
         () async {
           // Arrange
-          when(mockHttpClient.get(any)).thenAnswer((_) async => Response(
+          when(mockDio.get(any)).thenAnswer((_) async => Response(
               data: jsonDecode(fixtureReader("character_model.json")),
               statusCode: 200));
           // Act
@@ -92,6 +92,36 @@ void main() {
               await Modular.get<IJorelsBrotherDatasource>().getCharacters();
           //Assert
           expect(result, isA<List<CharacterModel>>());
+        },
+      );
+
+      test(
+        'Should return a FormatException when gets an empty string',
+        () async {
+          // Arrange
+          when(mockDio.get(any)).thenAnswer(
+              (_) async => Response(data: jsonDecode(""), statusCode: 200));
+          // Act
+          //Assert
+          expect(() async {
+            // Act
+            await Modular.get<IJorelsBrotherDatasource>().getCharacters();
+          }, throwsA(TypeMatcher<FormatException>()));
+        },
+      );
+
+      test(
+        'Should return a EmptyResultException when gets an empty json',
+        () async {
+          // Arrange
+          when(mockDio.get(any)).thenAnswer(
+              (_) async => Response(data: jsonDecode("{}"), statusCode: 200));
+          // Act
+          //Assert
+          expect(() async {
+            // Act
+            await Modular.get<IJorelsBrotherDatasource>().getCharacters();
+          }, throwsA(TypeMatcher<EmptyResultException>()));
         },
       );
     },

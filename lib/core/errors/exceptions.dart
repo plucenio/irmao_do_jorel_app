@@ -3,3 +3,9 @@ class ServerException implements Exception {
 
   ServerException(this.message);
 }
+
+class EmptyResultException implements Exception {
+  final String message = "Empty result";
+
+  EmptyResultException();
+}

@@ -13,9 +13,13 @@ class JorelsBrotherDatasource implements IJorelsBrotherDatasource {
 
     var response = await httpClient.get(url);
     if (response.statusCode == 200) {
-      return (response.data as List)
-          .map((e) => CharacterModel.fromJson(e))
-          .toList();
+      if (response.data is List) {
+        return (response.data as List)
+            .map((e) => CharacterModel.fromJson(e))
+            .toList();
+      } else {
+        throw EmptyResultException();
+      }
     } else {
       throw ServerException(response.statusCode.toString());
     }
