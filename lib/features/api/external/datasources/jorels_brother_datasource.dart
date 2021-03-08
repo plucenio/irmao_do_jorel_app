@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:irmao_do_jorel_app/core/errors/exceptions.dart';
 import 'package:irmao_do_jorel_app/features/api/data/datasources_interfaces/jorels_brother_datasource.dart';
 import 'package:irmao_do_jorel_app/features/api/data/models/character_model.dart';
 
@@ -16,7 +17,7 @@ class JorelsBrotherDatasource implements IJorelsBrotherDatasource {
           .map((e) => CharacterModel.fromJson(e))
           .toList();
     } else {
-      throw Exception(response.statusCode.toString());
+      throw ServerException(response.statusCode.toString());
     }
   }
 }

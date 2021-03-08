@@ -30,9 +30,14 @@ class _CharactersPageState extends State<CharactersPage> {
       body: Center(
         child: BlocConsumer<CharactersCubit, CharactersState>(
           listener: (context, state) {
-            return Center(
-              child: Text("listener"),
-            );
+            if (state is ErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.errorMessage),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
           },
           builder: (context, state) {
             if (state is LoadingState) {
@@ -58,7 +63,7 @@ class _CharactersPageState extends State<CharactersPage> {
                 ).toList(),
               );
             } else if (state is ErrorState) {
-              return Center(
+              return Container(
                 child: Text(state.errorMessage),
               );
             } else {
