@@ -10,8 +10,7 @@ class JorelsBrotherDatasource implements IJorelsBrotherDatasource {
   @override
   Future<List<CharacterModel>> getCharacters() async {
     var url = "http://www.irmaodojorelapi.site/api/Personagem";
-
-    var response = await httpClient.get(url);
+    var response = await httpClient.get(url).timeout(Duration(seconds: 10));
     if (response.statusCode == 200) {
       if (response.data is List) {
         return (response.data as List)

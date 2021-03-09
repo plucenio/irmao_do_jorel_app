@@ -22,6 +22,14 @@ class ServerFailure extends IFailure {
   List<Object> get props => [];
 }
 
+class TimeoutFailure extends IFailure {
+  final String message = "Tempo limite excedido.";
+  TimeoutFailure() : super();
+
+  @override
+  List<Object> get props => [];
+}
+
 class UnexpectedFailure extends IFailure {
   final String message;
   UnexpectedFailure(this.message) : super();

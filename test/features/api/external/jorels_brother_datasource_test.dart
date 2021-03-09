@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -77,6 +78,40 @@ void main() {
             // Act
             await Modular.get<IJorelsBrotherDatasource>().getCharacters();
           }, throwsA(TypeMatcher<DioError>()));
+        },
+      );
+
+      test(
+        'Should return a TimeoutException '
+        'when MockDio return TimeoutException',
+        () async {
+          // Arrange
+          when(mockDio.get(any)).thenThrow(
+            TimeoutException("Timeout exception"),
+          );
+
+          //Assert
+          expect(() async {
+            // Act
+            await Modular.get<IJorelsBrotherDatasource>().getCharacters();
+          }, throwsA(TypeMatcher<TimeoutException>()));
+        },
+      );
+
+      test(
+        'Should return a Exception '
+        'when MockDio return Exception',
+        () async {
+          // Arrange
+          when(mockDio.get(any)).thenThrow(
+            TimeoutException("Exception"),
+          );
+
+          //Assert
+          expect(() async {
+            // Act
+            await Modular.get<IJorelsBrotherDatasource>().getCharacters();
+          }, throwsA(TypeMatcher<Exception>()));
         },
       );
 

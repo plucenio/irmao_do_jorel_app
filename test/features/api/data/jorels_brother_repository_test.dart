@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -104,6 +106,26 @@ void main() {
           equals(
             dartz.Left(
               ServerFailure("Server error"),
+            ),
+          ),
+        );
+      },
+    );
+
+    test(
+      'should return TimeoutFailure when the datasource return TimeoutException',
+      () async {
+        // Arrange
+        when(mockDatasource.getCharacters())
+            .thenThrow(TimeoutException("Server error"));
+        // Act
+        final result = await repository.getCharacters();
+        //Assert
+        expect(
+          result,
+          equals(
+            dartz.Left(
+              TimeoutFailure(),
             ),
           ),
         );

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -23,6 +25,8 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
       return Left(DioFailure(e.message));
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));
+    } on TimeoutException {
+      return Left(TimeoutFailure());
     } on Exception catch (e) {
       return Left(UnexpectedFailure(e.toString()));
     }
