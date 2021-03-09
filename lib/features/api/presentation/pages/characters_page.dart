@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:irmao_do_jorel_app/features/api/presentation/cubit/characters_cubit.dart';
 
 import '../../../../constants.dart';
+import 'animated_controller.dart';
 
 class CharactersPage extends StatefulWidget {
   CharactersPage({
@@ -16,6 +17,8 @@ class CharactersPage extends StatefulWidget {
 
 class _CharactersPageState extends State<CharactersPage> {
   bool okInfo = false;
+
+  final animatedController = AnimatedController();
 
   @override
   void initState() {
@@ -83,23 +86,35 @@ class _CharactersPageState extends State<CharactersPage> {
               }
             },
           ),
-          Center(
-            child: Transform.scale(
-              scale: 2,
-              child: AnimatedContainer(
+          AnimatedBuilder(
+            animation: animatedController,
+            builder: (context, snapshot) {
+              return AnimatedContainer(
+                duration: animatedController.duration,
                 transform: Transform.translate(
-                    offset: Offset(
-                  okInfo ? height : height * 0.1,
-                  okInfo ? width : (width * 0.1) * -1,
-                )).transform,
-                curve: Curves.decelerate,
-                duration: Duration(milliseconds: 1500),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: okInfo ? Colors.transparent : Colors.green[600],
+                  offset: Offset(
+                    animatedController.x,
+                    animatedController.y,
+                  ),
+                ).transform,
+                child: Transform.scale(
+                  scale: 2,
+                  child: AnimatedContainer(
+                    transform: Transform.translate(
+                        offset: Offset(
+                      okInfo ? height : height * 0.1,
+                      okInfo ? width : (width * 0.1) * -1,
+                    )).transform,
+                    curve: Curves.decelerate,
+                    duration: Duration(milliseconds: 1500),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: okInfo ? Colors.transparent : Colors.green[600],
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
           Transform.scale(
             scale: 2,
@@ -180,7 +195,8 @@ class _CharactersPageState extends State<CharactersPage> {
         onPressed: () {
           setState(
             () {
-              okInfo = !okInfo;
+              //okInfo = !okInfo;
+              animatedController.teste();
             },
           );
         },
