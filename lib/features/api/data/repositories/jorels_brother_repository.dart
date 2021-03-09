@@ -15,11 +15,14 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
   Future<Either<IFailure, List<CharacterModel>>> getCharacters() async {
     try {
       var value = await datasource.getCharacters();
+      if (value == null) {
+        value = <CharacterModel>[];
+      }
       return Right(value);
     } on DioError catch (e) {
       return Left(DioFailure(e.message));
     } on ServerException catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ServerFailure(e.message));
     } on Exception catch (e) {
       return Left(UnexpectedFailure(e.toString()));
     }
