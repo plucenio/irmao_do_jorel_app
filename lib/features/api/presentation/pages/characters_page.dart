@@ -89,116 +89,113 @@ class _CharactersPageState extends State<CharactersPage> {
           AnimatedBuilder(
             animation: animatedController,
             builder: (context, snapshot) {
-              return AnimatedContainer(
-                duration: animatedController.duration,
-                transform: Transform.translate(
-                  offset: Offset(
-                    animatedController.x,
-                    animatedController.y,
-                  ),
-                ).transform,
-                child: Transform.scale(
-                  scale: 2,
-                  child: AnimatedContainer(
-                    transform: Transform.translate(
-                        offset: Offset(
-                      okInfo ? height : height * 0.1,
-                      okInfo ? width : (width * 0.1) * -1,
-                    )).transform,
-                    curve: Curves.decelerate,
-                    duration: Duration(milliseconds: 1500),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: okInfo ? Colors.transparent : Colors.green[600],
-                    ),
+              return Transform.scale(
+                scale: 2,
+                child: AnimatedContainer(
+                  transform: Transform.translate(
+                      offset: Offset(
+                    okInfo ? height : height * 0.1,
+                    okInfo ? width : (width * 0.1) * -1,
+                  )).transform,
+                  curve: animatedController.curve,
+                  duration: animatedController.duration,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: okInfo ? Colors.transparent : Colors.green[600],
                   ),
                 ),
               );
             },
           ),
-          Transform.scale(
-            scale: 2,
-            child: AnimatedContainer(
-              transform: Transform.translate(
+          AnimatedBuilder(
+            animation: animatedController,
+            builder: (context, snapshot) {
+              return Transform.scale(
+                scale: 2,
+                child: AnimatedContainer(
+                  transform: Transform.translate(
+                      offset: Offset(
+                    okInfo ? height : height * 0.1,
+                    okInfo ? width : width * 0.2,
+                  )).transform,
+                  curve: animatedController.curve,
+                  duration: animatedController.duration,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: okInfo ? Colors.transparent : Colors.green[400],
+                  ),
+                ),
+              );
+            },
+          ),
+          AnimatedBuilder(
+            animation: animatedController,
+            builder: (context, snapshot) {
+              return AnimatedContainer(
+                transform: Transform.translate(
                   offset: Offset(
-                okInfo ? height : height * 0.1,
-                okInfo ? width : width * 0.2,
-              )).transform,
-              curve: Curves.decelerate,
-              duration: Duration(milliseconds: 1500),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: okInfo ? Colors.transparent : Colors.green[400],
-              ),
-            ),
-          ),
-          AnimatedContainer(
-            transform: Transform.translate(
-              offset: Offset(
-                okInfo ? width : width * 0.4 - 5,
-                okInfo ? height : height * 0.4 - 5,
-              ),
-            ).transform,
-            curve: Curves.decelerate,
-            duration: Duration(milliseconds: 1500),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: okInfo ? Colors.transparent : Colors.brown[400],
-            ),
-          ),
-          AnimatedContainer(
-            transform: Transform.translate(
-              offset: Offset(
-                okInfo ? width : width * 0.4,
-                okInfo ? height : height * 0.4,
-              ),
-            ).transform,
-            curve: Curves.decelerate,
-            duration: Duration(milliseconds: 1500),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: okInfo ? Colors.transparent : Colors.brown,
-            ),
-          ),
-          AnimatedContainer(
-            transform: Transform.scale(scale: okInfo ? 0 : 1).transform,
-            curve: Curves.decelerate,
-            duration: Duration(seconds: 1),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                  width * (landscape ? 0.4 : 0.2),
-                  height * (landscape ? 0.4 : 0.2),
-                  width * (landscape ? 0.4 : 0.2),
-                  0),
-              child: Align(
-                alignment: Alignment.center,
-                child: Column(children: [
-                  Image.asset(
-                    "assets/image.png",
+                    okInfo ? width : width * 0.4 - 5,
+                    okInfo ? height : height * 0.4 - 5,
                   ),
-                  Text(
-                    "Irmão do Jorel API é uma API Rest que trás algumas inforamções sobre os personagens e episódios da série. Dados buscados da API: http://www.irmaodojorelapi.site/",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2
-                        .copyWith(color: Colors.white)
-                        .copyWith(fontSize: 10),
+                ).transform,
+                curve: animatedController.curve,
+                duration: animatedController.duration,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: okInfo ? Colors.transparent : Colors.brown[400],
+                ),
+              );
+            },
+          ),
+          AnimatedBuilder(
+            animation: animatedController,
+            builder: (context, snapshot) {
+              return AnimatedContainer(
+                transform: Transform.translate(
+                  offset: Offset(
+                    okInfo ? width : width * 0.4,
+                    okInfo ? height : height * 0.4,
                   ),
-                ]),
-              ),
-            ),
+                ).transform,
+                curve: animatedController.curve,
+                duration: animatedController.duration,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: okInfo ? Colors.transparent : Colors.brown,
+                ),
+              );
+            },
+          ),
+          AnimatedBuilder(
+            animation: animatedController,
+            builder: (context, snapshot) {
+              return AnimatedContainer(
+                transform: Transform.translate(
+                  offset: Offset(
+                    okInfo ? width : 0,
+                    okInfo ? height : 0,
+                  ),
+                ).transform,
+                curve: animatedController.curve,
+                duration: animatedController.duration,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    child: Image.asset(
+                      "assets/image.png",
+                    ),
+                  ),
+                ),
+              );
+            },
           )
         ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(okInfo ? Icons.info : Icons.check),
         onPressed: () {
-          setState(
-            () {
-              //okInfo = !okInfo;
-              animatedController.teste();
-            },
-          );
+          okInfo = !okInfo;
+          animatedController.notify();
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
