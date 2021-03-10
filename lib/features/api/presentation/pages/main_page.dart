@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:irmao_do_jorel_app/features/api/presentation/cubit/main_cubit.dart';
 import 'package:irmao_do_jorel_app/features/api/presentation/pages/character_page.dart';
+import 'package:irmao_do_jorel_app/features/api/presentation/pages/episode_page.dart';
 
 import '../../../../constants.dart';
 import 'animated_controller.dart';
@@ -250,8 +251,8 @@ class _MainPageState extends State<MainPage> {
                             leading: Text(item.id.toString()),
                             title: Text(item.nome),
                             onTap: () {
-                              // Modular.to
-                              //     .pushNamed(CharacterPage.route, arguments: item);
+                              Modular.to.pushNamed(EpisodePage.route,
+                                  arguments: item);
                             },
                           ),
                         )
@@ -263,8 +264,8 @@ class _MainPageState extends State<MainPage> {
                       leading: Text(item.id.toString()),
                       title: Text(item.nome),
                       onTap: () {
-                        // Modular.to
-                        //     .pushNamed(CharacterPage.route, arguments: item);
+                        Modular.to
+                            .pushNamed(EpisodePage.route, arguments: item);
                       },
                     ),
                   );

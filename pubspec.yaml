@@ -30,7 +30,9 @@ dependencies:
   equatable: ^1.2.5
   flutter_bloc: ^6.1.3
   flutter_modular: ^2.0.1
-  mockito: ^5.0.0
+  mockito: 
+  youtube_player_flutter: 
+  youtube_player_iframe: 
 
 dev_dependencies:
   flutter_test:

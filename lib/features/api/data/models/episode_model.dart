@@ -1,3 +1,5 @@
+import 'package:irmao_do_jorel_app/features/api/data/models/link_model.dart';
+
 import '../../domain/entities/episode.dart';
 
 class EpisodeModel extends Episode {
@@ -30,7 +32,16 @@ class EpisodeModel extends Episode {
     descricao = json['descricao'];
     sinopse = json['sinopse'];
     temporadaId = json['temporadaId'];
-    links = json['links'];
+    if (json['links'] != null) {
+      links = <LinkModel>[];
+      json['links'].forEach(
+        (l) {
+          links.add(
+            new LinkModel.fromJson(l),
+          );
+        },
+      );
+    }
   }
 
   Map<String, dynamic> toJson() {

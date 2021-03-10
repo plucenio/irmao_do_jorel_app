@@ -12,6 +12,7 @@ import 'package:irmao_do_jorel_app/features/api/presentation/pages/main_page.dar
 import 'app_widget.dart';
 import 'features/api/data/repositories/jorels_brother_repository.dart';
 import 'features/api/presentation/cubit/main_cubit.dart';
+import 'features/api/presentation/pages/episode_page.dart';
 
 class AppModule extends MainModule {
   @override
@@ -38,6 +39,13 @@ class AppModule extends MainModule {
           CharacterPage.route,
           child: (context, args) => CharacterPage(
             character: args.data,
+          ),
+          transition: TransitionType.fadeIn,
+        ),
+        ModularRouter(
+          EpisodePage.route,
+          child: (context, args) => EpisodePage(
+            episode: args.data,
           ),
           transition: TransitionType.fadeIn,
         ),
