@@ -6,6 +6,7 @@ import 'package:irmao_do_jorel_app/features/api/data/datasources_interfaces/jore
 import 'package:irmao_do_jorel_app/features/api/domain/repositories_interfaces/jorels_brother_repository.dart';
 import 'package:irmao_do_jorel_app/features/api/domain/usecases/jorels_brother_usecase.dart';
 import 'package:irmao_do_jorel_app/features/api/external/datasources/jorels_brother_datasource.dart';
+import 'package:irmao_do_jorel_app/features/api/presentation/pages/character_page.dart';
 import 'package:irmao_do_jorel_app/features/api/presentation/pages/characters_page.dart';
 
 import 'app_widget.dart';
@@ -32,6 +33,13 @@ class AppModule extends MainModule {
             create: (_) => CharactersCubit(),
             child: CharactersPage(),
           ),
+        ),
+        ModularRouter(
+          CharacterPage.route,
+          child: (context, args) => CharacterPage(
+            character: args.data,
+          ),
+          transition: TransitionType.fadeIn,
         ),
       ];
 }

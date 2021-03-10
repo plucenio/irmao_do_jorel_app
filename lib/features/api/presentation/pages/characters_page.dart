@@ -1,12 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:irmao_do_jorel_app/features/api/presentation/cubit/characters_cubit.dart';
+import 'package:irmao_do_jorel_app/features/api/presentation/pages/character_page.dart';
 
 import '../../../../constants.dart';
 import 'animated_controller.dart';
 
 class CharactersPage extends StatefulWidget {
+  static const String route = "/personagens";
   CharactersPage({
     Key key,
   }) : super(key: key);
@@ -28,9 +31,6 @@ class _CharactersPageState extends State<CharactersPage> {
 
   @override
   Widget build(BuildContext context) {
-    var landscape =
-        MediaQuery.of(context).size.width > MediaQuery.of(context).size.height;
-
     Size size = MediaQuery.of(context).size;
     double height = size.height;
     double width = size.width;
@@ -50,6 +50,9 @@ class _CharactersPageState extends State<CharactersPage> {
                     backgroundColor: Colors.red,
                   ),
                 );
+              } else if (state is SuccessState) {
+                okInfo = true;
+                animatedController.notify();
               }
             },
             builder: (context, state) {
@@ -69,7 +72,10 @@ class _CharactersPageState extends State<CharactersPage> {
                         child: ListTile(
                           leading: Image.network(item.imagemUrl),
                           title: Text(item.nome),
-                          onTap: () {},
+                          onTap: () {
+                            Modular.to.pushNamed(CharacterPage.route,
+                                arguments: item);
+                          },
                         ),
                       ),
                     ),
@@ -192,7 +198,11 @@ class _CharactersPageState extends State<CharactersPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(okInfo ? Icons.info : Icons.check),
+        child: AnimatedBuilder(
+            animation: animatedController,
+            builder: (context, snapshot) {
+              return Icon(okInfo ? Icons.info : Icons.check);
+            }),
         onPressed: () {
           okInfo = !okInfo;
           animatedController.notify();
