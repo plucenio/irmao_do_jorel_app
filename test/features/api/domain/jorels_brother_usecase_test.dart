@@ -1,7 +1,9 @@
 import 'package:irmao_do_jorel_app/app_module.dart';
 import 'package:irmao_do_jorel_app/core/errors/failures.dart';
 import 'package:irmao_do_jorel_app/features/api/data/models/character_model.dart';
+import 'package:irmao_do_jorel_app/features/api/data/models/episode_model.dart';
 import 'package:irmao_do_jorel_app/features/api/domain/entities/character.dart';
+import 'package:irmao_do_jorel_app/features/api/domain/entities/episode.dart';
 import 'package:irmao_do_jorel_app/features/api/domain/repositories_interfaces/jorels_brother_repository.dart';
 import 'package:irmao_do_jorel_app/features/api/domain/usecases/jorels_brother_usecase.dart';
 import 'package:mockito/mockito.dart';
@@ -39,7 +41,7 @@ void main() {
   );
 
   group(
-    'rankingsHealthService',
+    'getCharacters',
     () {
       var emptyList = <CharacterModel>[];
 
@@ -117,6 +119,92 @@ void main() {
               .thenAnswer((_) async => dartz.Left(DioFailure("Failure")));
           // Act
           final result = await usecase.getCharacters();
+          //Assert
+          expect(result, equals(dartz.Left(DioFailure("Failure"))));
+        },
+      );
+    },
+  );
+
+  group(
+    'getEpisodes',
+    () {
+      var emptyList = <EpisodeModel>[];
+
+      var list = <EpisodeModel>[
+        EpisodeModel(nome: 'Episodio 1'),
+        EpisodeModel(nome: 'Episodio 2'),
+        EpisodeModel(nome: 'Episodio 3'),
+      ];
+
+      test(
+        'should return a list of Episodes when repository returns a list of EpisodeModel',
+        () async {
+          // Arrange
+          when(mockRepository.getEpisodes())
+              .thenAnswer((_) async => dartz.Right(list));
+          // Act
+          final result = await usecase.getEpisodes();
+          //Assert
+          expect(result, equals(dartz.Right(list)));
+
+          result.fold((l) => null, (r) {
+            expect(r, isA<List<Episode>>());
+          });
+        },
+      );
+
+      test(
+        'should return a list of Episode when repository returns an empty list',
+        () async {
+          // Arrange
+          when(mockRepository.getEpisodes())
+              .thenAnswer((_) async => dartz.Right(emptyList));
+          // Act
+          final result = await usecase.getEpisodes();
+          //Assert
+          expect(result, equals(dartz.Right(emptyList)));
+
+          result.fold((l) => null, (r) {
+            expect(r, isA<List<Episode>>());
+          });
+        },
+      );
+
+      test(
+        'should return an UnexpectedFailure when an UnexpectedFailure occurs on repository',
+        () async {
+          // Arrange
+          when(mockRepository.getEpisodes()).thenAnswer(
+              (_) async => dartz.Left(UnexpectedFailure("Failure")));
+          // Act
+          final result = await usecase.getEpisodes();
+          //Assert
+          expect(result, equals(dartz.Left(UnexpectedFailure("Failure"))));
+        },
+      );
+
+      test(
+        'should return an ServerFailure when an ServerFailure occurs on repository',
+        () async {
+          // Arrange
+          when(mockRepository.getEpisodes())
+              .thenAnswer((_) async => dartz.Left(ServerFailure("Failure")));
+          // Act
+          final result = await usecase.getEpisodes();
+          //Assert
+          expect(result, equals(dartz.Left(ServerFailure("Failure"))));
+        },
+      );
+
+      test(
+        'should return an DioFailure when an DioFailure occurs on repository',
+        () async {
+          // Arrange
+          when(mockRepository.getEpisodes())
+              .thenAnswer((_) async => dartz.Left(DioFailure("Failure")));
+          // Act
+          final result = await usecase.getEpisodes();
           //Assert
           expect(result, equals(dartz.Left(DioFailure("Failure"))));
         },
