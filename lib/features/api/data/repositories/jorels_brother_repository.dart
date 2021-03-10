@@ -7,6 +7,7 @@ import 'package:irmao_do_jorel_app/core/errors/exceptions.dart';
 import 'package:irmao_do_jorel_app/core/errors/failures.dart';
 import 'package:irmao_do_jorel_app/features/api/data/datasources_interfaces/jorels_brother_datasource.dart';
 import 'package:irmao_do_jorel_app/features/api/data/models/character_model.dart';
+import 'package:irmao_do_jorel_app/features/api/data/models/episode_model.dart';
 import 'package:irmao_do_jorel_app/features/api/domain/repositories_interfaces/jorels_brother_repository.dart';
 
 class JorelsBrotherRepository implements IJorelsBrotherRepository {
@@ -19,6 +20,25 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
       var value = await datasource.getCharacters();
       if (value == null) {
         value = <CharacterModel>[];
+      }
+      return Right(value);
+    } on DioError catch (e) {
+      return Left(DioFailure(e.message));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.message));
+    } on TimeoutException {
+      return Left(TimeoutFailure());
+    } on Exception catch (e) {
+      return Left(UnexpectedFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<IFailure, List<EpisodeModel>>> getEpisodes() async {
+    try {
+      var value = await datasource.getEpisodes();
+      if (value == null) {
+        value = <EpisodeModel>[];
       }
       return Right(value);
     } on DioError catch (e) {

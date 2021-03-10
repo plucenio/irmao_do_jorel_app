@@ -1,6 +1,6 @@
 {
-    "name": "irmao_do_jorel_app",
-    "short_name": "irmao_do_jorel_app",
+    "name": "Irmao do Jorel",
+    "short_name": "Irmao do Jorel",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

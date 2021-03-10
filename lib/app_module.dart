@@ -7,11 +7,11 @@ import 'package:irmao_do_jorel_app/features/api/domain/repositories_interfaces/j
 import 'package:irmao_do_jorel_app/features/api/domain/usecases/jorels_brother_usecase.dart';
 import 'package:irmao_do_jorel_app/features/api/external/datasources/jorels_brother_datasource.dart';
 import 'package:irmao_do_jorel_app/features/api/presentation/pages/character_page.dart';
-import 'package:irmao_do_jorel_app/features/api/presentation/pages/characters_page.dart';
+import 'package:irmao_do_jorel_app/features/api/presentation/pages/main_page.dart';
 
 import 'app_widget.dart';
 import 'features/api/data/repositories/jorels_brother_repository.dart';
-import 'features/api/presentation/cubit/characters_cubit.dart';
+import 'features/api/presentation/cubit/main_cubit.dart';
 
 class AppModule extends MainModule {
   @override
@@ -30,8 +30,8 @@ class AppModule extends MainModule {
         ModularRouter(
           Modular.initialRoute,
           child: (context, args) => BlocProvider(
-            create: (_) => CharactersCubit(),
-            child: CharactersPage(),
+            create: (_) => MainCubit(),
+            child: MainPage(),
           ),
         ),
         ModularRouter(
