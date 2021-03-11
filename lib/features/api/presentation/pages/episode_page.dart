@@ -25,7 +25,7 @@ class _EpisodePageState extends State<EpisodePage> {
               (element) => (element as Link).fonte.toLowerCase() == "youtube")
           .first;
       _controller = YoutubePlayerController(
-        initialVideoId: link.url.replaceAll("https://youtu.be/", ""),
+        initialVideoId: link.url.split("/").last,
         params: YoutubePlayerParams(
           showControls: true,
           showFullscreenButton: true,
