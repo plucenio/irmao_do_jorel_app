@@ -11,7 +11,13 @@ class JorelsBrotherDatasource implements IJorelsBrotherDatasource {
   @override
   Future<List<CharacterModel>> getCharacters() async {
     var url = "http://www.irmaodojorelapi.site/api/Personagem";
-    var response = await httpClient.get(url).timeout(Duration(seconds: 10));
+    var response = await httpClient
+        .get(
+          url,
+          options: Options(
+              headers: {'Content-Type': 'application/json; charset=UTF-8'}),
+        )
+        .timeout(Duration(seconds: 10));
     if (response.statusCode == 200) {
       if (response.data is List) {
         return (response.data as List)
@@ -28,7 +34,13 @@ class JorelsBrotherDatasource implements IJorelsBrotherDatasource {
   @override
   Future<List<EpisodeModel>> getEpisodes() async {
     var url = "http://www.irmaodojorelapi.site/api/Episodio";
-    var response = await httpClient.get(url).timeout(Duration(seconds: 10));
+    var response = await httpClient
+        .get(
+          url,
+          options: Options(
+              headers: {'Content-Type': 'application/json; charset=UTF-8'}),
+        )
+        .timeout(Duration(seconds: 10));
     if (response.statusCode == 200) {
       if (response.data is List) {
         return (response.data as List)
