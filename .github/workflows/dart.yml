@@ -1,0 +1,19 @@
+name: Codemagic
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Call Codemagic
+        run: curl "https://api.codemagic.io/hooks/60492f97478667ea16edeaf5"
+
+      # Consider passing '--fatal-infos' for slightly stricter analysis.
