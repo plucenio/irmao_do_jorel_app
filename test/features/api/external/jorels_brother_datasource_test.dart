@@ -53,8 +53,12 @@ void main() {
         () async {
           for (var i = 201; i < 300; i++) {
             // Arrange
-            when(mockDio.get(any))
-                .thenAnswer((_) async => Response(data: "", statusCode: i));
+            when(
+              mockDio.get(
+                any,
+                options: anyNamed("options"),
+              ),
+            ).thenAnswer((_) async => Response(data: "", statusCode: i));
 
             //Assert
             expect(() async {
@@ -70,7 +74,12 @@ void main() {
         'when MockDio return DioError',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenThrow(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenThrow(
             DioError(),
           );
 
@@ -87,7 +96,12 @@ void main() {
         'when MockDio return TimeoutException',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenThrow(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenThrow(
             TimeoutException("Timeout exception"),
           );
 
@@ -104,7 +118,12 @@ void main() {
         'when MockDio return Exception',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenThrow(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenThrow(
             TimeoutException("Exception"),
           );
 
@@ -120,7 +139,12 @@ void main() {
         'Should return a CharacterModel list when gets data',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenAnswer((_) async => Response(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenAnswer((_) async => Response(
               data: jsonDecode(fixtureReader("character_model.json")),
               statusCode: 200));
           // Act
@@ -135,7 +159,12 @@ void main() {
         'Should return a FormatException when gets an empty string',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenAnswer(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenAnswer(
               (_) async => Response(data: jsonDecode(""), statusCode: 200));
           // Act
           //Assert
@@ -150,7 +179,12 @@ void main() {
         'Should return a EmptyResultException when gets an empty json',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenAnswer(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenAnswer(
               (_) async => Response(data: jsonDecode("{}"), statusCode: 200));
           // Act
           //Assert
@@ -172,8 +206,12 @@ void main() {
         () async {
           for (var i = 201; i < 300; i++) {
             // Arrange
-            when(mockDio.get(any))
-                .thenAnswer((_) async => Response(data: "", statusCode: i));
+            when(
+              mockDio.get(
+                any,
+                options: anyNamed("options"),
+              ),
+            ).thenAnswer((_) async => Response(data: "", statusCode: i));
 
             //Assert
             expect(() async {
@@ -189,7 +227,12 @@ void main() {
         'when MockDio return DioError',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenThrow(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenThrow(
             DioError(),
           );
 
@@ -206,7 +249,12 @@ void main() {
         'when MockDio return TimeoutException',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenThrow(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenThrow(
             TimeoutException("Timeout exception"),
           );
 
@@ -223,7 +271,12 @@ void main() {
         'when MockDio return Exception',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenThrow(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenThrow(
             TimeoutException("Exception"),
           );
 
@@ -239,7 +292,12 @@ void main() {
         'Should return a EpisodeModel list when gets data',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenAnswer((_) async => Response(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenAnswer((_) async => Response(
               data: jsonDecode(fixtureReader("character_model.json")),
               statusCode: 200));
           // Act
@@ -254,7 +312,12 @@ void main() {
         'Should return a FormatException when gets an empty string',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenAnswer(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenAnswer(
               (_) async => Response(data: jsonDecode(""), statusCode: 200));
           // Act
           //Assert
@@ -269,7 +332,12 @@ void main() {
         'Should return a EmptyResultException when gets an empty json',
         () async {
           // Arrange
-          when(mockDio.get(any)).thenAnswer(
+          when(
+            mockDio.get(
+              any,
+              options: anyNamed("options"),
+            ),
+          ).thenAnswer(
               (_) async => Response(data: jsonDecode("{}"), statusCode: 200));
           // Act
           //Assert
