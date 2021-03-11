@@ -21,5 +21,5 @@ jobs:
       - name: Call Codemagic API
         run: >
         curl -H "Content-Type application/json" -H "x-auth-token 1gzKlwuOPQP5g2pEETQXQd_HZhX9Xg404zxtmGJ-qNY" 
-        --data @codemagic.json 
+        --data "codemagic.json" 
         https://api.codemagic.io/builds
