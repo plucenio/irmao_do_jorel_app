@@ -10,7 +10,8 @@ class JorelsBrotherDatasource implements IJorelsBrotherDatasource {
 
   @override
   Future<List<CharacterModel>> getCharacters() async {
-    var url = "http://www.irmaodojorelapi.site/api/Personagem";
+    var url =
+        "https://cors-anywhere.herokuapp.com/http://www.irmaodojorelapi.site/api/Personagem";
     var response = await httpClient
         .get(
           url,
@@ -33,7 +34,8 @@ class JorelsBrotherDatasource implements IJorelsBrotherDatasource {
 
   @override
   Future<List<EpisodeModel>> getEpisodes() async {
-    var url = "http://www.irmaodojorelapi.site/api/Episodio";
+    var url =
+        "https://cors-anywhere.herokuapp.com/http://www.irmaodojorelapi.site/api/Episodio";
     var response = await httpClient
         .get(
           url,
