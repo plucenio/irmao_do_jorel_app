@@ -23,28 +23,20 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
       }
       return Right(value);
     } on DioError catch (e) {
-      if (e.type == DioErrorType.RESPONSE) {
-        if (e.response.statusCode == 403) {
-          return Left(
-            DioFailureWithSolution(
-              "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
-              solution: e.response.statusCode == 403
-                  ? "Para resolver o problema solicite permissão neste link:"
-                  : null,
-              link: e.response.statusCode == 403
-                  ? "https://cors-anywhere.herokuapp.com/corsdemo"
-                  : null,
-            ),
-          );
-        } else {
-          return Left(
-            DioFailure(
-              "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
-            ),
-          );
-        }
+      if (e.type == DioErrorType.RESPONSE && e.response.statusCode == 403) {
+        return Left(
+          DioFailureWithSolution(
+            "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
+            solution: "Para resolver o problema solicite permissão neste link:",
+            link: "https://cors-anywhere.herokuapp.com/corsdemo",
+          ),
+        );
       } else {
-        return Left(DioFailure(e.message));
+        return Left(
+          DioFailure(
+            "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
+          ),
+        );
       }
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));
@@ -64,28 +56,20 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
       }
       return Right(value);
     } on DioError catch (e) {
-      if (e.type == DioErrorType.RESPONSE) {
-        if (e.response.statusCode == 403) {
-          return Left(
-            DioFailureWithSolution(
-              "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
-              solution: e.response.statusCode == 403
-                  ? "Para resolver o problema solicite permissão neste link:"
-                  : null,
-              link: e.response.statusCode == 403
-                  ? "https://cors-anywhere.herokuapp.com/corsdemo"
-                  : null,
-            ),
-          );
-        } else {
-          return Left(
-            DioFailure(
-              "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
-            ),
-          );
-        }
+      if (e.type == DioErrorType.RESPONSE && e.response.statusCode == 403) {
+        return Left(
+          DioFailureWithSolution(
+            "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
+            solution: "Para resolver o problema solicite permissão neste link:",
+            link: "https://cors-anywhere.herokuapp.com/corsdemo",
+          ),
+        );
       } else {
-        return Left(DioFailure(e.message));
+        return Left(
+          DioFailure(
+            "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
+          ),
+        );
       }
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));

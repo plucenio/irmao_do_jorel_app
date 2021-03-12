@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:irmao_do_jorel_app/core/errors/failures.dart';
 
 import '../../domain/entities/character.dart';
 import '../../domain/entities/episode.dart';
@@ -20,11 +21,21 @@ class MainCubit extends Cubit<MainState> {
         (result) {
           result.fold(
             (failure) {
-              emit(
-                ErrorState(
-                  errorMessage: failure.message,
-                ),
-              );
+              if (failure is DioFailureWithSolution) {
+                emit(
+                  ErrorWithSolutionState(
+                    errorMessage: failure.message,
+                    solution: failure.solution,
+                    link: failure.link,
+                  ),
+                );
+              } else {
+                emit(
+                  ErrorState(
+                    errorMessage: failure.message,
+                  ),
+                );
+              }
             },
             (list) {
               emit(
@@ -39,11 +50,21 @@ class MainCubit extends Cubit<MainState> {
         (result) {
           result.fold(
             (failure) {
-              emit(
-                ErrorState(
-                  errorMessage: failure.message,
-                ),
-              );
+              if (failure is DioFailureWithSolution) {
+                emit(
+                  ErrorWithSolutionState(
+                    errorMessage: failure.message,
+                    solution: failure.solution,
+                    link: failure.link,
+                  ),
+                );
+              } else {
+                emit(
+                  ErrorState(
+                    errorMessage: failure.message,
+                  ),
+                );
+              }
             },
             (list) {
               emit(

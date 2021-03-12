@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -8,6 +9,7 @@ import 'package:irmao_do_jorel_app/features/api/presentation/pages/episode_page.
 
 import '../../../../constants.dart';
 import 'animated_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainPage extends StatefulWidget {
   static const String route = "/personagens";
@@ -287,16 +289,37 @@ class _MainPageState extends State<MainPage> {
           );
         } else if (state is ErrorState) {
           return Container(
-            child: Text(state.errorMessage),
+            child: Center(
+              child: Text(state.errorMessage),
+            ),
           );
         } else if (state is ErrorWithSolutionState) {
           return Container(
-            child: Column(
-              children: [
-                Text(state.errorMessage),
-                Text(state.solution),
-                Text(state.link),
-              ],
+            child: Center(
+              child: Column(
+                children: [
+                  Text(state.errorMessage),
+                  Text(state.solution),
+                  Container(
+                      child: RichText(
+                          text: TextSpan(children: [
+                    TextSpan(
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              color: Colors.blue,
+                            ),
+                        text: "Solicitar acesso temporário",
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            var url = state.link;
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          }),
+                  ])))
+                ],
+              ),
             ),
           );
         } else {
