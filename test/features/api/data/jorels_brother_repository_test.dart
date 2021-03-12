@@ -69,9 +69,12 @@ void main() {
           // Act
           final result = await repository.getCharacters();
           //Assert
-          result.fold((l) => null, (r) {
-            expect(r, equals(emptyList));
-          });
+          result.fold(
+            (l) => null,
+            (r) {
+              expect(r, equals(emptyList));
+            },
+          );
         },
       );
 
@@ -155,14 +158,15 @@ void main() {
       );
 
       test(
-        'should return DioFailure when the datasource return DioErrorType.RESPONSE',
+        'should return DioFailure when the datasource return DioErrorType.RESPONSE with a 404 as s StatusCode',
         () async {
           // Arrange
+          var response = Response(statusCode: 404, statusMessage: "RESPONSE");
           when(mockDatasource.getCharacters()).thenThrow(
             DioError(
               error: "RESPONSE",
               type: DioErrorType.RESPONSE,
-              response: Response(statusMessage: "RESPONSE"),
+              response: response,
             ),
           );
           // Act
@@ -172,10 +176,14 @@ void main() {
             result,
             equals(
               dartz.Left(
-                DioFailure("RESPONSE"),
+                DioFailure("404 - RESPONSE"),
               ),
             ),
           );
+
+          result.fold((l) {
+            expect(l.message, equals("404 - RESPONSE"));
+          }, (r) => null);
         },
       );
     },
@@ -295,14 +303,15 @@ void main() {
       );
 
       test(
-        'should return DioFailure when the datasource return DioErrorType.RESPONSE',
+        'should return DioFailure when the datasource return DioErrorType.RESPONSE with a 404 as s StatusCode',
         () async {
           // Arrange
+          var response = Response(statusCode: 404, statusMessage: "RESPONSE");
           when(mockDatasource.getEpisodes()).thenThrow(
             DioError(
               error: "RESPONSE",
               type: DioErrorType.RESPONSE,
-              response: Response(statusMessage: "RESPONSE"),
+              response: response,
             ),
           );
           // Act
@@ -316,6 +325,10 @@ void main() {
               ),
             ),
           );
+
+          result.fold((l) {
+            expect(l.message, equals("404 - RESPONSE"));
+          }, (r) => null);
         },
       );
     },

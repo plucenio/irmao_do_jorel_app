@@ -24,7 +24,8 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
       return Right(value);
     } on DioError catch (e) {
       if (e.type == DioErrorType.RESPONSE) {
-        return Left(DioFailure(e.response.statusMessage));
+        return Left(DioFailure(
+            "${e.response.statusCode.toString()} - ${e.response.statusMessage}"));
       } else {
         return Left(DioFailure(e.message));
       }
@@ -47,7 +48,8 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
       return Right(value);
     } on DioError catch (e) {
       if (e.type == DioErrorType.RESPONSE) {
-        return Left(DioFailure(e.response.statusMessage));
+        return Left(DioFailure(
+            "${e.response.statusCode.toString()} - ${e.response.statusMessage}"));
       } else {
         return Left(DioFailure(e.message));
       }
