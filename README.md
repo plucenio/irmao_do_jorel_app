@@ -1,16 +1,13 @@
-# irmao_do_jorel_app
+# Irmao do Jorel
 
-A new Flutter project.
 
-## Getting Started
+![alt text](https://raw.githubusercontent.com/plucenio/irmao_do_jorel_app/main/assets/image.png)
 
-This project is a starting point for a Flutter application.
+Um website que reune informações e episódios do o desenho animado Irmão do Jorel.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+# Acesso ao website
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1 - Para acessar o website primeiro é necessário requisitar acesso a partir desde link https://cors-anywhere.herokuapp.com/corsdemo
+
+2 - Depois disso é só acessar o link https://irmao_do_jorel_app.codemagic.app/#/
