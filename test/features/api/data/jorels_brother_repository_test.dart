@@ -153,6 +153,31 @@ void main() {
           );
         },
       );
+
+      test(
+        'should return DioFailure when the datasource return DioErrorType.RESPONSE',
+        () async {
+          // Arrange
+          when(mockDatasource.getCharacters()).thenThrow(
+            DioError(
+              error: "RESPONSE",
+              type: DioErrorType.RESPONSE,
+              response: Response(statusMessage: "RESPONSE"),
+            ),
+          );
+          // Act
+          final result = await repository.getCharacters();
+          //Assert
+          expect(
+            result,
+            equals(
+              dartz.Left(
+                DioFailure("RESPONSE"),
+              ),
+            ),
+          );
+        },
+      );
     },
   );
 
@@ -230,11 +255,11 @@ void main() {
       );
 
       test(
-        'should return TimeoutFailure when the datasource return TimeoutException',
+        'should return UnexpectedFailure when the datasource return Exception',
         () async {
           // Arrange
           when(mockDatasource.getEpisodes())
-              .thenThrow(TimeoutException("Server error"));
+              .thenThrow(Exception("Server error"));
           // Act
           final result = await repository.getEpisodes();
           //Assert
@@ -242,7 +267,7 @@ void main() {
             result,
             equals(
               dartz.Left(
-                TimeoutFailure(),
+                UnexpectedFailure("Server error"),
               ),
             ),
           );
@@ -263,6 +288,31 @@ void main() {
             equals(
               dartz.Left(
                 UnexpectedFailure("Server error"),
+              ),
+            ),
+          );
+        },
+      );
+
+      test(
+        'should return DioFailure when the datasource return DioErrorType.RESPONSE',
+        () async {
+          // Arrange
+          when(mockDatasource.getEpisodes()).thenThrow(
+            DioError(
+              error: "RESPONSE",
+              type: DioErrorType.RESPONSE,
+              response: Response(statusMessage: "RESPONSE"),
+            ),
+          );
+          // Act
+          final result = await repository.getEpisodes();
+          //Assert
+          expect(
+            result,
+            equals(
+              dartz.Left(
+                DioFailure("RESPONSE"),
               ),
             ),
           );

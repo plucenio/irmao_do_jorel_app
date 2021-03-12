@@ -23,7 +23,11 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
       }
       return Right(value);
     } on DioError catch (e) {
-      return Left(DioFailure(e.message));
+      if (e.type == DioErrorType.RESPONSE) {
+        return Left(DioFailure(e.response.statusMessage));
+      } else {
+        return Left(DioFailure(e.message));
+      }
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));
     } on TimeoutException {
@@ -42,7 +46,11 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
       }
       return Right(value);
     } on DioError catch (e) {
-      return Left(DioFailure(e.message));
+      if (e.type == DioErrorType.RESPONSE) {
+        return Left(DioFailure(e.response.statusMessage));
+      } else {
+        return Left(DioFailure(e.message));
+      }
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));
     } on TimeoutException {
