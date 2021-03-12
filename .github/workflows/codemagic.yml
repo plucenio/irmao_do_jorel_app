@@ -18,5 +18,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-#      - name: Call Codemagic API
-#        run: "curl -H \"Content-Type : application/json\" -H \"x-auth-token : 1gzKlwuOPQP5g2pEETQXQd_HZhX9Xg404zxtmGJ-qNY\" --data '{\"appId : 60492f97478667ea16edeaf5\",\"workflowId : 60492f97478667ea16edeaf4\",\"branch : main\"}' https://api.codemagic.io/builds"
+      - name: Call Codemagic API
+        run: "curl -H \"Content-Type : application/json\" -H \"x-auth-token : 1gzKlwuOPQP5g2pEETQXQd_HZhX9Xg404zxtmGJ-qNY\" --data '{\"appId &#58; 60492f97478667ea16edeaf5\",\"workflowId &#58; 60492f97478667ea16edeaf4\",\"branch &#58; main\"}' https://api.codemagic.io/builds"
