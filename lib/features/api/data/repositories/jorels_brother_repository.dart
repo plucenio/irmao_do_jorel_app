@@ -31,10 +31,16 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
             link: "https://cors-anywhere.herokuapp.com/corsdemo",
           ),
         );
+      } else if (e.response != null) {
+        return Left(
+          DioFailure(
+            "${e.response.statusCode} - ${e.response.statusMessage}",
+          ),
+        );
       } else {
         return Left(
           DioFailure(
-            "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
+            "${e.message}",
           ),
         );
       }
@@ -56,7 +62,7 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
       }
       return Right(value);
     } on DioError catch (e) {
-      if (e.type == DioErrorType.RESPONSE && e.response.statusCode == 403) {
+      if (e.type == DioErrorType.RESPONSE && e.response?.statusCode == 403) {
         return Left(
           DioFailureWithSolution(
             "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
@@ -64,10 +70,16 @@ class JorelsBrotherRepository implements IJorelsBrotherRepository {
             link: "https://cors-anywhere.herokuapp.com/corsdemo",
           ),
         );
+      } else if (e.response != null) {
+        return Left(
+          DioFailure(
+            "${e.response.statusCode} - ${e.response.statusMessage}",
+          ),
+        );
       } else {
         return Left(
           DioFailure(
-            "${e.response.statusCode.toString()} - ${e.response.statusMessage}",
+            "${e.message}",
           ),
         );
       }
