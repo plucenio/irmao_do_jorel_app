@@ -14,6 +14,20 @@ class DioFailure extends IFailure {
   List<Object> get props => [];
 }
 
+class DioFailureWithSolution extends IFailure {
+  final String message;
+  final String solution;
+  final String link;
+  DioFailureWithSolution(
+    this.message, {
+    this.solution,
+    this.link,
+  }) : super();
+
+  @override
+  List<Object> get props => [];
+}
+
 class ServerFailure extends IFailure {
   final String message;
   ServerFailure(this.message) : super();

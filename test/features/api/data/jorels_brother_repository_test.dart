@@ -158,10 +158,10 @@ void main() {
       );
 
       test(
-        'should return DioFailure when the datasource return DioErrorType.RESPONSE with a 404 as s StatusCode',
+        'should return DioFailure when the datasource return DioErrorType.RESPONSE with a 403 as s StatusCode',
         () async {
           // Arrange
-          var response = Response(statusCode: 404, statusMessage: "RESPONSE");
+          var response = Response(statusCode: 403, statusMessage: "RESPONSE");
           when(mockDatasource.getCharacters()).thenThrow(
             DioError(
               error: "RESPONSE",
@@ -176,13 +176,57 @@ void main() {
             result,
             equals(
               dartz.Left(
-                DioFailure("404 - RESPONSE"),
+                DioFailureWithSolution("403 - RESPONSE"),
               ),
             ),
           );
 
           result.fold((l) {
-            expect(l.message, equals("404 - RESPONSE"));
+            expect(
+              l.message,
+              equals("403 - RESPONSE"),
+            );
+            expect(
+              (l as DioFailureWithSolution).solution,
+              equals("Para resolver o problema solicite permissão neste link:"),
+            );
+            expect(
+              (l as DioFailureWithSolution).link,
+              equals("https://cors-anywhere.herokuapp.com/corsdemo"),
+            );
+          }, (r) => null);
+        },
+      );
+
+      test(
+        'should return DioFailure with link null when the datasource return DioErrorType.RESPONSE with a 401 as StatusCode',
+        () async {
+          // Arrange
+          var response = Response(statusCode: 401, statusMessage: "RESPONSE");
+          when(mockDatasource.getEpisodes()).thenThrow(
+            DioError(
+              error: "RESPONSE",
+              type: DioErrorType.RESPONSE,
+              response: response,
+            ),
+          );
+          // Act
+          final result = await repository.getEpisodes();
+          //Assert
+          expect(
+            result,
+            equals(
+              dartz.Left(
+                DioFailure("RESPONSE"),
+              ),
+            ),
+          );
+
+          result.fold((l) {
+            expect(
+              l.message,
+              equals("401 - RESPONSE"),
+            );
           }, (r) => null);
         },
       );
@@ -303,10 +347,51 @@ void main() {
       );
 
       test(
-        'should return DioFailure when the datasource return DioErrorType.RESPONSE with a 404 as s StatusCode',
+        'should return DioFailure when the datasource return DioErrorType.RESPONSE with a 403 as StatusCode',
         () async {
           // Arrange
-          var response = Response(statusCode: 404, statusMessage: "RESPONSE");
+          var response = Response(statusCode: 403, statusMessage: "RESPONSE");
+          when(mockDatasource.getEpisodes()).thenThrow(
+            DioError(
+              error: "RESPONSE",
+              type: DioErrorType.RESPONSE,
+              response: response,
+            ),
+          );
+          // Act
+          final result = await repository.getEpisodes();
+          //Assert
+          expect(
+            result,
+            equals(
+              dartz.Left(
+                DioFailureWithSolution("RESPONSE"),
+              ),
+            ),
+          );
+
+          result.fold((l) {
+            expect(
+              l.message,
+              equals("403 - RESPONSE"),
+            );
+            expect(
+              (l as DioFailureWithSolution).solution,
+              equals("Para resolver o problema solicite permissão neste link:"),
+            );
+            expect(
+              (l as DioFailureWithSolution).link,
+              equals("https://cors-anywhere.herokuapp.com/corsdemo"),
+            );
+          }, (r) => null);
+        },
+      );
+
+      test(
+        'should return DioFailure with link null when the datasource return DioErrorType.RESPONSE with a 401 as StatusCode',
+        () async {
+          // Arrange
+          var response = Response(statusCode: 401, statusMessage: "RESPONSE");
           when(mockDatasource.getEpisodes()).thenThrow(
             DioError(
               error: "RESPONSE",
@@ -327,7 +412,10 @@ void main() {
           );
 
           result.fold((l) {
-            expect(l.message, equals("404 - RESPONSE"));
+            expect(
+              l.message,
+              equals("401 - RESPONSE"),
+            );
           }, (r) => null);
         },
       );

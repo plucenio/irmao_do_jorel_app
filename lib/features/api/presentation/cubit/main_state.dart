@@ -26,3 +26,13 @@ class ErrorState extends MainState {
 
   ErrorState({@required this.errorMessage}) : super();
 }
+
+class ErrorWithSolutionState extends MainState {
+  final String errorMessage;
+  final String solution;
+  final String link;
+
+  ErrorWithSolutionState(
+      {@required this.errorMessage, this.solution, this.link})
+      : super();
+}

@@ -2,9 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:irmao_do_jorel_app/features/api/domain/entities/character.dart';
-import 'package:irmao_do_jorel_app/features/api/domain/entities/episode.dart';
-import 'package:irmao_do_jorel_app/features/api/domain/usecases/jorels_brother_usecase.dart';
+
+import '../../domain/entities/character.dart';
+import '../../domain/entities/episode.dart';
+import '../../domain/usecases/jorels_brother_usecase.dart';
 
 part 'main_state.dart';
 
@@ -19,10 +20,16 @@ class MainCubit extends Cubit<MainState> {
         (result) {
           result.fold(
             (failure) {
-              emit(ErrorState(errorMessage: failure.message));
+              emit(
+                ErrorState(
+                  errorMessage: failure.message,
+                ),
+              );
             },
             (list) {
-              emit(SuccessStateCharacters(list: list));
+              emit(
+                SuccessStateCharacters(list: list),
+              );
             },
           );
         },
@@ -32,10 +39,16 @@ class MainCubit extends Cubit<MainState> {
         (result) {
           result.fold(
             (failure) {
-              emit(ErrorState(errorMessage: failure.message));
+              emit(
+                ErrorState(
+                  errorMessage: failure.message,
+                ),
+              );
             },
             (list) {
-              emit(SuccessStateEpisodes(list: list));
+              emit(
+                SuccessStateEpisodes(list: list),
+              );
             },
           );
         },
