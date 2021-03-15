@@ -123,6 +123,41 @@ void main() {
           expect(result, equals(dartz.Left(DioFailure("Failure"))));
         },
       );
+
+      test(
+        'should return an DioFailureWithSolution when an DioFailureWithSolution occurs on repository',
+        () async {
+          // Arrange
+          when(mockRepository.getCharacters()).thenAnswer(
+            (_) async => dartz.Left(
+              DioFailureWithSolution("Failure with solution",
+                  solution: "Solution", link: "link"),
+            ),
+          );
+          // Act
+          final result = await usecase.getCharacters();
+          //Assert
+          expect(
+            result,
+            equals(
+              dartz.Left(
+                DioFailureWithSolution("Failure with solution",
+                    solution: "Solution", link: "link"),
+              ),
+            ),
+          );
+          result.fold((l) {
+            expect(
+              (l as DioFailureWithSolution).solution,
+              equals("Solution"),
+            );
+            expect(
+              (l as DioFailureWithSolution).link,
+              equals("link"),
+            );
+          }, (r) => null);
+        },
+      );
     },
   );
 
@@ -207,6 +242,41 @@ void main() {
           final result = await usecase.getEpisodes();
           //Assert
           expect(result, equals(dartz.Left(DioFailure("Failure"))));
+        },
+      );
+
+      test(
+        'should return an DioFailureWithSolution when an DioFailureWithSolution occurs on repository',
+        () async {
+          // Arrange
+          when(mockRepository.getEpisodes()).thenAnswer(
+            (_) async => dartz.Left(
+              DioFailureWithSolution("Failure with solution",
+                  solution: "Solution", link: "link"),
+            ),
+          );
+          // Act
+          final result = await usecase.getEpisodes();
+          //Assert
+          expect(
+            result,
+            equals(
+              dartz.Left(
+                DioFailureWithSolution("Failure with solution",
+                    solution: "Solution", link: "link"),
+              ),
+            ),
+          );
+          result.fold((l) {
+            expect(
+              (l as DioFailureWithSolution).solution,
+              equals("Solution"),
+            );
+            expect(
+              (l as DioFailureWithSolution).link,
+              equals("link"),
+            );
+          }, (r) => null);
         },
       );
     },
