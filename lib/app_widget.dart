@@ -34,9 +34,6 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      navigatorKey: Modular.navigatorKey,
-      onGenerateRoute: Modular.generateRoute,
-      initialRoute: Modular.initialRoute,
-    );
+    ).modular();
   }
 }

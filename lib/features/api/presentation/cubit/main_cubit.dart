@@ -14,9 +14,10 @@ class MainCubit extends Cubit<MainState> {
   MainCubit() : super(InitialState());
   IJorelsBrotherUsecase usecase = Modular.get<IJorelsBrotherUsecase>();
 
-  void getData(bool teste) {
+  void getData(bool characters) {
+    emit(InitialState());
     emit(LoadingState());
-    if (teste) {
+    if (characters) {
       usecase.getCharacters().then(
         (result) {
           result.fold(

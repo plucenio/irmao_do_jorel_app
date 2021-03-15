@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_modular/flutter_modular_test.dart';
+import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irmao_do_jorel_app/app_module.dart';
 import 'package:irmao_do_jorel_app/core/errors/exceptions.dart';
@@ -21,7 +21,7 @@ void main() {
   IJorelsBrotherRepository repository;
 
   setUp(() {
-    initModule(AppModule(), changeBinds: [
+    initModule(AppModule(), replaceBinds: [
       Bind<IJorelsBrotherDatasource>((i) => MockDatasource()),
     ]);
     mockDatasource = Modular.get<IJorelsBrotherDatasource>();

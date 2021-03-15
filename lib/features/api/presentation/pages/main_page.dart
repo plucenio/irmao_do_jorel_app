@@ -31,7 +31,6 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _currentSelectedItemBottomBar = 0;
-    context.read<MainCubit>().getData(true);
   }
 
   @override
@@ -188,11 +187,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _getData() {
+    context.read<MainCubit>().getData(true);
     return BlocConsumer<MainCubit, MainState>(
       listener: (context, state) {
+        okInfo = true;
+        animatedController.notify();
         if (state is ErrorState) {
-          okInfo = true;
-          animatedController.notify();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errorMessage),
@@ -200,20 +200,12 @@ class _MainPageState extends State<MainPage> {
             ),
           );
         } else if (state is ErrorWithSolutionState) {
-          okInfo = true;
-          animatedController.notify();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errorMessage),
               backgroundColor: Colors.red,
             ),
           );
-        } else if (state is SuccessStateCharacters) {
-          okInfo = true;
-          animatedController.notify();
-        } else if (state is SuccessStateEpisodes) {
-          okInfo = true;
-          animatedController.notify();
         }
       },
       builder: (context, state) {

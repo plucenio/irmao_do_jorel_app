@@ -1,3 +1,4 @@
+import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:irmao_do_jorel_app/app_module.dart';
 import 'package:irmao_do_jorel_app/core/errors/failures.dart';
 import 'package:irmao_do_jorel_app/features/api/data/models/character_model.dart';
@@ -9,7 +10,6 @@ import 'package:irmao_do_jorel_app/features/api/domain/usecases/jorels_brother_u
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart' as dartz;
-import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class MockRepository extends Mock implements IJorelsBrotherRepository {}
@@ -19,7 +19,7 @@ void main() {
   IJorelsBrotherRepository mockRepository;
   setUp(
     () {
-      initModule(AppModule(), changeBinds: [
+      initModule(AppModule(), replaceBinds: [
         Bind<IJorelsBrotherRepository>((i) => MockRepository()),
       ]);
       mockRepository = Modular.get<IJorelsBrotherRepository>();

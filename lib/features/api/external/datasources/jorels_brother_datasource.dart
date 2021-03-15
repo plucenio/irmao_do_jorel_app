@@ -18,7 +18,7 @@ class JorelsBrotherDatasource implements IJorelsBrotherDatasource {
           options: Options(
               headers: {'Content-Type': 'application/json; charset=UTF-8'}),
         )
-        .timeout(Duration(seconds: 12));
+        .timeout(Duration(seconds: 15));
     if (response.statusCode == 200) {
       if (response.data is List) {
         return (response.data as List)
@@ -42,7 +42,7 @@ class JorelsBrotherDatasource implements IJorelsBrotherDatasource {
           options: Options(
               headers: {'Content-Type': 'application/json; charset=UTF-8'}),
         )
-        .timeout(Duration(seconds: 12));
+        .timeout(Duration(seconds: 15));
     if (response.statusCode == 200) {
       if (response.data is List) {
         return (response.data as List)

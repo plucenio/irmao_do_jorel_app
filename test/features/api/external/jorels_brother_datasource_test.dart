@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:irmao_do_jorel_app/app_module.dart';
 import 'package:irmao_do_jorel_app/core/errors/exceptions.dart';
 import 'package:irmao_do_jorel_app/features/api/data/datasources_interfaces/jorels_brother_datasource.dart';
@@ -12,7 +11,7 @@ import 'package:irmao_do_jorel_app/features/api/data/models/episode_model.dart';
 import 'package:matcher/matcher.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-
+import 'package:flutter_modular_test/flutter_modular_test.dart';
 import '../../../fixtures/fixture_reader.dart';
 
 class MockDio extends Mock implements Dio {}
@@ -23,7 +22,7 @@ void main() {
     () {
       initModules([
         AppModule(),
-      ], changeBinds: [
+      ], replaceBinds: [
         Bind<Dio>((i) => MockDio()),
       ]);
       mockDio = Modular.get<Dio>();
